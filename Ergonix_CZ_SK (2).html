@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fulfillment pro Ergonix &middot; ČR &amp; SK</title>
+<meta name="description" content="Kalkulace skladování a expedice pro ČR a SK – supply.do">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f6;--card:#ffffff;--ink:#0f172a;--mut:#64748b;--line:#e2e8f0;--acc:#0e9f6e;--acc2:#0b7e58;--soft:#effaf4;--shadow:0 10px 30px rgba(15,23,42,.08)}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:var(--acc2)}
+.bar{background:#0f172a;color:#fff;padding:12px 20px;display:flex;align-items:center;gap:12px;font-weight:600}
+.bar .logo{font-weight:800;color:#fff;letter-spacing:-.02em}
+.bar .logo span{color:var(--acc)}
+.bar .sep{color:#334155}
+.bar .t{color:#cbd5e1;font-weight:500;font-size:14px}
+.wrap{max-width:1140px;margin:0 auto;padding:22px 16px 60px}
+.hero{margin:10px 2px 20px}
+.hero h1{font-size:28px;font-weight:800;letter-spacing:-.025em;margin:0 0 6px}
+.hero p{color:var(--mut);margin:0;font-size:15px;max-width:720px}
+.grid{display:grid;grid-template-columns:1fr 400px;gap:18px;align-items:start}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:20px}
+.card h3{margin:0 0 4px;font-size:16px;font-weight:700}
+.card .sub{color:var(--mut);font-size:13px;margin:0 0 16px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid #f1f5f9}
+.row:last-child{border-bottom:none}
+.row label{font-size:14px;font-weight:500;color:#1e293b}
+.row label small{display:block;color:var(--mut);font-weight:400;font-size:12px;margin-top:1px}
+.ig{display:flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:2px 10px;min-width:118px;justify-content:flex-end}
+.ig:focus-within{border-color:var(--acc);box-shadow:0 0 0 3px rgba(14,159,110,.12)}
+.ig input{border:none;background:transparent;text-align:right;width:70px;font:inherit;font-weight:600;font-size:14px;color:var(--ink);outline:none;-moz-appearance:textfield}
+.ig input::-webkit-outer-spin-button,.ig input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.ig .u{color:var(--mut);font-size:12px;font-weight:600;white-space:nowrap}
+/* read-only ceník (klient) */
+#cenik.ro .ig{background:transparent;border-color:transparent;padding-right:0}
+#cenik.ro .ig input{cursor:default}
+.sechead{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);margin:18px 0 4px}
+.sechead:first-child{margin-top:0}
+.note{background:var(--soft);border:1px solid #c9ede0;border-radius:10px;padding:10px 12px;font-size:12.5px;color:#0b6a49;margin-top:14px}
+.panel{position:sticky;top:16px}
+.bk{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;font-size:13.5px;border-bottom:1px solid #f1f5f9}
+.bk>span{display:flex;flex-direction:column;gap:1px;color:var(--mut)}
+.bk .frm{color:#94a3b8;font-size:11px;font-weight:400}
+.bk b{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bk.sub{border-top:1px solid var(--line);border-bottom:none;margin-top:4px;padding-top:9px}
+.bk.sub>span{color:#334155;font-weight:600}
+.bk.sub b{font-weight:700}
+.ghead{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc2);margin:14px 0 2px}
+.ghead:first-child{margin-top:0}
+.total{margin-top:14px;padding:16px;border-radius:14px;background:linear-gradient(135deg,#0f172a,#143d31);color:#fff}
+.total .lbl{font-size:12px;color:#93c5ac;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.total .big{font-size:30px;font-weight:800;letter-spacing:-.02em;margin-top:2px}
+.total .po{font-size:13px;color:#b9d8cb;margin-top:2px}
+.cta{display:block;width:100%;margin-top:14px;padding:13px;border:none;border-radius:12px;background:var(--acc);color:#fff;font:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:.15s}
+.cta:hover{background:var(--acc2)}
+.mini{font-size:11.5px;color:var(--mut);text-align:center;margin-top:8px}
+.marge{margin-top:12px;padding:12px 14px;border:1px dashed #cbd5e1;border-radius:12px;background:#f8fafc}
+.marge .mr{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}
+.marge .mr b{font-variant-numeric:tabular-nums}
+.marge .mp{font-size:22px;font-weight:800;color:var(--acc2)}
+.pill{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;margin-left:6px}
+.foot{max-width:1140px;margin:0 auto;padding:10px 18px 40px;color:var(--mut);font-size:12px;line-height:1.7}
+.foot b{color:#334155}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+.modal.show{display:flex}
+.modalbox{background:#fff;border-radius:18px;max-width:440px;width:100%;padding:26px;position:relative;box-shadow:0 30px 60px rgba(0,0,0,.3)}
+.mx{position:absolute;top:14px;right:16px;border:none;background:none;font-size:24px;color:#94a3b8;cursor:pointer;line-height:1}
+.modalbox h4{margin:0 0 6px;font-size:20px;font-weight:800}
+.msub{color:var(--mut);font-size:13.5px;margin:0 0 16px}
+.modalbox label{display:block;font-size:12.5px;font-weight:600;color:#334155;margin-bottom:10px}
+.modalbox input,.modalbox textarea{width:100%;margin-top:4px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:14px;font-weight:500}
+.modalbox input:focus,.modalbox textarea:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(14,159,110,.12)}
+.okic{width:54px;height:54px;border-radius:50%;background:var(--soft);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 10px}
+#msuccess{text-align:center}
+</style>
+</head>
+<body>
+<div class="bar"><span class="logo">supply<span>.do</span></span><span class="sep">|</span><span class="t">Fulfillment pro Ergonix &middot; ČR &amp; SK</span></div>
+<div class="wrap">
+  <div class="hero">
+    <h1>Kalkulace skladování a expedice &mdash; ČR &amp; SK</h1>
+    <p>Naceníme příjem, skladování, kompletaci, expedici i doručení vašeho zboží koncovým zákazníkům v Česku a na Slovensku. Nastavte si parametry a uvidíte orientační měsíční cenu i jednotkový ceník.</p>
+  </div>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>Vstupní parametry</h3>
+        <p class="sub">Předvyplněno podle vaší poptávky &mdash; hodnoty klidně upravte.</p>
+
+        <div class="sechead">Objem</div>
+        <div class="row"><label>Objednávky / měsíc</label><div class="ig"><input type="number" id="orders" value="350" oninput="calc()"><span class="u">obj.</span></div></div>
+        <div class="row"><label>Ø balíků na objednávku<small>obvykle 1&ndash;2 krabice</small></label><div class="ig"><input type="number" id="abox" step="0.1" value="1.4" oninput="calc()"><span class="u">ks</span></div></div>
+        <div class="row"><label>Ø položek na objednávku<small>pro expedici navíc</small></label><div class="ig"><input type="number" id="aitem" step="0.1" value="1.4" oninput="calc()"><span class="u">ks</span></div></div>
+
+        <div class="sechead">Doprava &amp; dobírka</div>
+        <div class="row"><label>Podíl zásilek na Slovensko<small>zbytek jde do ČR</small></label><div class="ig"><input type="number" id="sk" value="20" oninput="calc()"><span class="u">%</span></div></div>
+        <div class="row"><label>Podíl nadrozměrných balíků<small>velké desky &mdash; příplatek v ČR</small></label><div class="ig"><input type="number" id="over" value="30" oninput="calc()"><span class="u">%</span></div></div>
+        <div class="row"><label>Podíl objednávek na dobírku</label><div class="ig"><input type="number" id="cod" value="50" oninput="calc()"><span class="u">%</span></div></div>
+
+        <div class="sechead">Sklad &amp; příjem</div>
+        <div class="row"><label>Palety skladem (průměr)</label><div class="ig"><input type="number" id="pstore" value="40" oninput="calc()"><span class="u">pal.</span></div></div>
+        <div class="row"><label>Podíl dlouhých palet 180&times;80</label><div class="ig"><input type="number" id="plong" value="30" oninput="calc()"><span class="u">%</span></div></div>
+        <div class="row"><label>Příjem palet / měsíc</label><div class="ig"><input type="number" id="pin" value="20" oninput="calc()"><span class="u">pal.</span></div></div>
+        <div class="row"><label>Vykládek kamion/kontejner volně / měsíc</label><div class="ig"><input type="number" id="bulk" value="0" oninput="calc()"><span class="u">ks</span></div></div>
+        <div class="row"><label>Vratky (podíl objednávek)</label><div class="ig"><input type="number" id="ret" value="2" oninput="calc()"><span class="u">%</span></div></div>
+      </div>
+
+      <div class="card" id="cenik" style="margin-top:18px">
+        <h3 id="cenik_h">Ceník služeb a dopravy</h3>
+        <p class="sub" id="cenik_s">Jednotkové ceny za úkony. Množství zadáváte výše, zde vidíte sazby.</p>
+        <div class="sechead">Služby</div>
+        <div class="row"><label>Expedice / objednávka (1. balík)</label><div class="ig"><input type="number" id="p_exp" value="49" oninput="calc()"><span class="u">Kč</span></div></div>
+        <div class="row"><label>Každý další balík</label><div class="ig"><input type="number" id="p_box" value="20" oninput="calc()"><span class="u">Kč</span></div></div>
+        <div class="row"><label>Položka (kus) navíc</label><div class="ig"><input type="number" id="p_item" value="9" oninput="calc()"><span class="u">Kč</span></div></div>
+        <div class="row"><label>Příjem &mdash; paleta</label><div class="ig"><input type="number" id="p_rpal" value="85" oninput="calc()"><span class="u">Kč</span></div></div>
+        <div class="row"><label>Vykládka kamion/kontejner volně</label><div class="ig"><input type="number" id="p_bulk" value="5500" oninput="calc()"><span class="u">Kč</span></div></div>
+        <div class="row"><label>Vratka (příjem + kontrola)</label><div class="ig"><input type="number" id="p_ret" value="55" oninput="calc()"><span class="u">Kč</span></div></div>
+        <div class="row"><label>Skladování<small>za m² plochy / měsíc (vč. 20 % na uličky)</small></label><div class="ig"><input type="number" id="p_m2" value="250" oninput="calc()"><span class="u">Kč/m²</span></div></div>
+        <div class="row"><label>Systém / Shopify (VF)</label><div class="ig"><input type="number" id="p_sys" value="3000" oninput="calc()"><span class="u">Kč/měs</span></div></div>
+        <div class="row"><label>Min. měsíční fakturace služeb</label><div class="ig"><input type="number" id="p_min" value="30000" oninput="calc()"><span class="u">Kč</span></div></div>
+        <input type="hidden" id="p_aisle" value="1.20">
+        <div class="sechead">Doprava &amp; dobírka (vč. paliva a mýta)</div>
+        <div class="row"><label>PPL ČR na adresu (HD, do 31 kg)</label><div class="ig"><input type="number" id="p_ppl" value="95" oninput="calc()"><span class="u">Kč</span></div></div>
+        <div class="row"><label>Příplatek nadrozměr / atyp (ČR)</label><div class="ig"><input type="number" id="p_over" value="45" oninput="calc()"><span class="u">Kč</span></div></div>
+        <div class="row"><label>GLS SK na adresu (HD, do 31 kg / 360 cm, vč. nadrozměru)</label><div class="ig"><input type="number" id="p_gls" value="160" oninput="calc()"><span class="u">Kč</span></div></div>
+        <div class="row"><label>Dobírka ČR</label><div class="ig"><input type="number" id="p_codcz" value="20" oninput="calc()"><span class="u">Kč</span></div></div>
+        <div class="row"><label>Dobírka SK</label><div class="ig"><input type="number" id="p_codsk" value="30" oninput="calc()"><span class="u">Kč</span></div></div>
+        <div class="note" id="minnote">Minimální měsíční fakturace služeb je 30 000 Kč. Uplatní se hlavně na začátku &mdash; při vyšším objemu je skutečná fakturace již vyšší. <b>Ceny platné do 31. 12. 2026.</b></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="card">
+        <h3>Náklad na objednávku</h3>
+        <p class="sub">Hlavní srovnávací metrika: vychystání + doprava na jednu objednávku.</p>
+
+        <div class="total">
+          <div class="lbl">Vychystání + doprava</div>
+          <div class="big" id="perobj">0 Kč</div>
+          <div class="po">na objednávku &middot; dle objemu a mixu dopravy</div>
+        </div>
+
+        <div class="bk" style="margin-top:12px"><span>Vychystání (expedice)<span class="frm" id="f_exp"></span></span><b id="o_exp">0 Kč</b></div>
+        <div class="bk"><span>Doprava &ndash; průměr<span class="frm" id="f_dop"></span></span><b id="o_dop">0 Kč</b></div>
+        <div class="bk"><span>Dobírka &ndash; ČR / SK<span class="frm">za dobírkovou objednávku</span></span><b id="o_dob">0 Kč</b></div>
+
+        <div class="ghead">Měsíční položky (nezávislé na počtu objednávek)</div>
+        <div class="bk"><span>Skladování<span class="frm" id="f_sto"></span></span><b id="r_sto">0 Kč</b></div>
+        <div class="bk"><span>Příjem zboží<span class="frm" id="f_rec"></span></span><b id="r_rec">0 Kč</b></div>
+        <div class="bk"><span>Vratky<span class="frm" id="f_ret"></span></span><b id="r_ret">0 Kč</b></div>
+        <div class="bk"><span>Systém / Shopify<span class="frm">paušál</span></span><b id="r_sys">0 Kč</b></div>
+        <div class="bk sub"><span>Měsíční položky celkem<span class="frm" id="f_sluz"></span></span><b id="r_fix">0 Kč</b></div>
+
+        <div class="total" style="background:linear-gradient(135deg,#334155,#1e293b);margin-top:12px">
+          <div class="lbl">Orientační celkem za měsíc</div>
+          <div class="big" id="total">0 Kč</div>
+          <div class="po" id="totpo"></div>
+        </div>
+
+        <div class="marge" id="marge" hidden>
+          <div class="mr"><span>Náklad celkem</span><b id="i_cost">0 Kč</b></div>
+          <div class="mr"><span>z toho marže doprava</span><b id="i_dopm">0 Kč</b></div>
+          <div class="mr"><span>z toho marže služby</span><b id="i_sluzm">0 Kč</b></div>
+          <div class="mr" style="align-items:baseline;margin-top:4px"><span>Marže celkem</span><span><b id="i_marze">0 Kč</b> &middot; <span class="mp" id="i_mp">0 %</span></span></div>
+        </div>
+
+        <button class="cta" id="ctaBtn" type="button">Nabídka se mi líbí &mdash; chci závaznou nabídku</button>
+        <div class="mini">Z potvrzení připravíme závaznou nabídku na míru</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <b>SupplyDo s.r.o.</b> &middot; sklad Hluk, Družstevní II 1531, 687 25 Hluk &middot; DIČ: CZ14205360 &middot; <a href="mailto:david@supply.do">david@supply.do</a> &middot; www.supply.do<br>
+  <span style="opacity:.75">Orientační ceny bez DPH. <b>Platnost nabídky do 31. 12. 2026.</b> Doprava zahrnuje palivový a mýtný příplatek. Konečná nabídka dle objemu a smluvních podmínek. Zadané hodnoty mohou být zaznamenány pro přípravu nabídky.</span>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modalbox">
+    <button class="mx" id="mclose" type="button">&times;</button>
+    <div id="mbody">
+      <h4>Chci závaznou nabídku</h4>
+      <p class="msub">Pokud vám tato kalkulace vyhovuje, stačí potvrdit níže. Připravíme na jejím základě <b>závaznou nabídku na míru</b> &mdash; vaše konfigurace se přikládá automaticky, kontakt už od vás máme.</p>
+      <form id="leadForm">
+        <input type="hidden" name="access_key" value="b97dc68f-a63a-4b35-9500-9adc88933c79">
+        <input type="hidden" name="subject" value="Ergonix – POTVRZENO: žádost o závaznou nabídku dle kalkulace">
+        <input type="hidden" name="from_name" value="supply.do kalkulačka Ergonix">
+        <textarea name="Kalkulace" id="calcField" style="display:none"></textarea>
+        <label>Jméno / kdo potvrzuje <span style="font-weight:400;color:#94a3b8">(nepovinné)</span><input name="Jméno"></label>
+        <label>Poznámka k nabídce <span style="font-weight:400;color:#94a3b8">(nepovinné)</span><textarea name="Poznámka" rows="2"></textarea></label>
+        <button class="cta" type="submit">Potvrzuji &mdash; chci závaznou nabídku</button>
+      </form>
+    </div>
+    <div id="msuccess" style="display:none">
+      <div class="okic">&check;</div>
+      <h4>Děkujeme za potvrzení!</h4>
+      <p class="msub">Potvrzení jsme přijali. Na základě této kalkulace připravíme závaznou nabídku na míru a ozveme se vám.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+var INTERNAL=false;
+var COST={exp:30,box:10,item:5,rpal:55,bulk:4500,ret:35,m2:150,ppl:69,over:40,gls:130,codcz:15,codsk:25,sys:0,min:15000};
+function val(id){var e=document.getElementById(id);return e?parseFloat(e.value)||0:0;}
+function czk(n){return Math.round(n).toLocaleString('cs-CZ')+' Kč';}
+function set(id,t){var e=document.getElementById(id);if(e)e.textContent=t;}
+function dec(n){return (Math.round(n*10)/10).toLocaleString('cs-CZ');}
+function minFor(orders){return val('p_min');}
+
+function calc(){
+  var orders=val('orders'),abox=val('abox'),aitem=val('aitem');
+  var skp=val('sk')/100,overp=val('over')/100,codp=val('cod')/100,retp=val('ret')/100;
+  var pstore=val('pstore'),plongp=val('plong')/100,pin=val('pin'),bulk=val('bulk');
+
+  var boxes=orders*abox,items=orders*aitem;
+  var extraBox=Math.max(boxes-orders,0),extraItem=Math.max(items-orders,0);
+  var boxSK=boxes*skp,boxCZ=boxes-boxSK;
+  var overCZ=boxCZ*overp;
+  var codOrd=orders*codp,codSK=codOrd*skp,codCZ=codOrd-codSK;
+  var returns=orders*retp;
+  var pLong=pstore*plongp,pStd=pstore-pLong;
+  var m2=(pStd*0.96+pLong*1.44)*val('p_aisle');
+
+  var exp=orders*val('p_exp')+extraBox*val('p_box')+extraItem*val('p_item');
+  var rec=pin*val('p_rpal')+bulk*val('p_bulk');
+  var sto=m2*val('p_m2');
+  var ret=returns*val('p_ret');
+  var sys=val('p_sys');
+  var sluz=exp+rec+sto+ret+sys;
+  var minv=minFor(orders),sluzBill=Math.max(sluz,minv);
+  var ppl=boxCZ*val('p_ppl')+overCZ*val('p_over');
+  var gls=boxSK*val('p_gls');
+  var dop=ppl+gls;
+  var dob=codCZ*val('p_codcz')+codSK*val('p_codsk');
+  var total=sluzBill+dop+dob;
+
+  // per-order metrika: vychystání + doprava (jako konkurence)
+  var perobj=orders?(exp+dop)/orders:0;
+  var fix=sluzBill-exp;  // měsíční položky (sklad+příjem+vratky+systém, vč. dorovnání do minima)
+  set('perobj',czk(perobj));
+  set('o_exp',czk(orders?exp/orders:0));
+  set('o_dop',czk(orders?dop/orders:0));
+  set('o_dob',val('p_codcz')+' / '+val('p_codsk')+' Kč');
+  set('f_exp','1. balík '+val('p_exp')+' + další balík '+val('p_box')+' / položka '+val('p_item')+' Kč');
+  set('f_dop',dec(100-val('sk'))+' % ČR (PPL '+val('p_ppl')+'+'+val('p_over')+' atyp) · '+val('sk')+' % SK (GLS '+val('p_gls')+')');
+  set('f_sto',dec(m2)+' m² × '+val('p_m2')+' Kč');
+  set('f_rec',dec(pin)+' pal. × '+val('p_rpal')+(bulk>0?('  + '+dec(bulk)+'× vykládka '+val('p_bulk')):'')+' Kč');
+  set('f_ret',dec(returns)+' × '+val('p_ret')+' Kč');
+  set('f_sluz',sluz<minv?('vč. dorovnání do min. fakturace '+czk(minv)):'');
+  set('r_sto',czk(sto));set('r_rec',czk(rec));set('r_ret',czk(ret));set('r_sys',czk(sys));
+  set('r_fix',czk(fix));
+  set('total',czk(total));
+  set('totpo',dec(orders)+' obj × '+czk(perobj)+'  +  měsíční položky');
+
+  if(INTERNAL){
+    var cexp=orders*COST.exp+extraBox*COST.box+extraItem*COST.item;
+    var crec=pin*COST.rpal+bulk*COST.bulk;
+    var csto=m2*COST.m2;
+    var cret=returns*COST.ret;
+    var csluz=cexp+crec+csto+cret+COST.sys;
+    var csluzBill=Math.max(csluz,COST.min);
+    var cppl=boxCZ*COST.ppl+overCZ*COST.over;
+    var cgls=boxSK*COST.gls;
+    var cdop=cppl+cgls;
+    var cdob=codCZ*COST.codcz+codSK*COST.codsk;
+    var ctot=csluzBill+cdop+cdob;
+    var marze=total-ctot,mpc=total?marze/total*100:0;
+    set('i_cost',czk(ctot));set('i_marze',czk(marze));set('i_mp',dec(mpc)+' %');
+    set('i_dopm',czk(dop-cdop)+' ('+dec(dop?(dop-cdop)/dop*100:0)+' %)');
+    set('i_sluzm',czk(sluzBill-csluzBill));
+  }
+}
+
+function buildSummary(){
+  return '— Konfigurace Ergonix ČR & SK —\n'
+    +'Objednávky/měs: '+val('orders')+'\n'
+    +'Ø balíků/obj: '+val('abox')+' | Ø položek/obj: '+val('aitem')+'\n'
+    +'Podíl SK: '+val('sk')+'% | Nadrozměr: '+val('over')+'% | Dobírka: '+val('cod')+'%\n'
+    +'Vratky: '+val('ret')+'%\n'
+    +'Palety skladem: '+val('pstore')+' (dlouhé '+val('plong')+'%) '+document.getElementById('f_sto').textContent+'\n'
+    +'Příjem palet/měs: '+val('pin')+' | Vykládek volně: '+val('bulk')+'\n'
+    +'— — —\n'
+    +'Vychystání + doprava / obj: '+document.getElementById('perobj').textContent+'\n'
+    +'Měsíční položky (sklad+příjem+systém): '+document.getElementById('r_fix').textContent+'\n'
+    +'CELKEM/měs: '+document.getElementById('total').textContent;
+}
+function openModal(){document.getElementById('calcField').value=buildSummary();document.getElementById('modal').classList.add('show');}
+document.getElementById('ctaBtn').addEventListener('click',openModal);
+document.getElementById('mclose').addEventListener('click',function(){document.getElementById('modal').classList.remove('show');});
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
+document.getElementById('leadForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var btn=e.target.querySelector('button[type=submit]');btn.textContent='Odesílám…';btn.disabled=true;
+  fetch('https://api.web3forms.com/submit',{method:'POST',body:new FormData(e.target)})
+    .then(function(r){return r.json();})
+    .then(function(d){if(d.success){document.getElementById('mbody').style.display='none';document.getElementById('msuccess').style.display='block';}
+      else{alert('Odeslání se nezdařilo. Napište prosím na david@supply.do');btn.textContent='Potvrzuji — chci závaznou nabídku';btn.disabled=false;}})
+    .catch(function(){alert('Odeslání se nezdařilo. Napište prosím na david@supply.do');btn.textContent='Potvrzuji — chci závaznou nabídku';btn.disabled=false;});
+});
+
+/* ---- Pasivní záchyt rozpracované konfigurace ---- */
+(function(){
+  var TOP=['orders','abox','aitem'];
+  var MIN_DWELL_TOP=60;
+  var start=Date.now(),changed={},openedForm=false,captured=false;
+  ['orders','abox','aitem','sk','over','cod','ret','pstore','plong','pin','bulk']
+   .forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('change',function(){changed[id]=1;});});
+  document.getElementById('ctaBtn').addEventListener('click',function(){openedForm=true;});
+  document.getElementById('leadForm').addEventListener('submit',function(){captured=true;});
+  function touchedDeep(){return Object.keys(changed).some(function(id){return TOP.indexOf(id)===-1;});}
+  function engaged(){if(openedForm||touchedDeep())return true;var dwell=(Date.now()-start)/1000;return Object.keys(changed).length>=1&&dwell>=MIN_DWELL_TOP;}
+  function send(){
+    if(captured||!engaged())return;captured=true;
+    var fd=new FormData();
+    fd.append('access_key','b97dc68f-a63a-4b35-9500-9adc88933c79');
+    fd.append('subject','Rozpracovaná kalkulace (NEODESLÁNO) – Ergonix ČR/SK');
+    fd.append('from_name','supply.do kalkulačka Ergonix');
+    fd.append('Stav',openedForm?'Otevřel formulář, ale neodeslal (horký lead)':'Konfiguroval kalkulačku');
+    fd.append('Na stránce (s)',Math.round((Date.now()-start)/1000));
+    fd.append('Změněná pole',Object.keys(changed).join(', ')||'—');
+    fd.append('Kalkulace',buildSummary());
+    try{var ok=navigator.sendBeacon&&navigator.sendBeacon('https://api.web3forms.com/submit',fd);if(!ok)fetch('https://api.web3forms.com/submit',{method:'POST',body:fd,keepalive:true});}catch(e){}
+  }
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')send();});
+  window.addEventListener('pagehide',send);
+})();
+
+// Klient: ceník jen ke čtení (ne editovatelný); interní: editovatelný + marže
+if(!INTERNAL){
+  document.querySelectorAll('#cenik input').forEach(function(i){i.readOnly=true;i.tabIndex=-1;});
+  document.getElementById('cenik').classList.add('ro');
+}else{
+  document.getElementById('cenik_h').textContent='Ceník (interní – editovatelný)';
+  document.getElementById('cenik_s').textContent='Prodejní ceny. Úpravou se přepočítá kalkulace i marže (proti pevným nákupním cenám).';
+}
+calc();
+</script>
+</body>
+</html>
